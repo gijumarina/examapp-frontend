@@ -11,10 +11,15 @@
     background-color: #fff;
     overflow-y: auto;
   }
+
+  input, p, label {
+    color: black;
+  }
   
   .question-container {
     margin-bottom: 20px;
     min-width: 50%;
+    color: black;
   }
   
   h2 {

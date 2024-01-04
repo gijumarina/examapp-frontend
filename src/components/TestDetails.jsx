@@ -9,6 +9,7 @@ const TestDetails = ({ id }) => {
   const { state } = useLocation();
   console.log(state);
   const [test, setTest] = useState({});
+  const [result, setResult] = useState(-1);
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
@@ -51,7 +52,8 @@ const TestDetails = ({ id }) => {
       await axios.post(`http://localhost:8080/test/submitAnswer/${state.id}`, submissionData).then((res) => {
         setMessage(res.data?.message);
         setOpen(true);
-      });
+        setResult(res.data?.testResult?.result);
+      })
     } catch (error) {
       console.error("Error submitting answers:", error);
     }
@@ -115,6 +117,7 @@ const TestDetails = ({ id }) => {
       ))}
       <button onClick={handleSubmit}>Submit</button>
       <button onClick={handleEnd}>End</button>
+      {result !== -1 && <p>GRADE: {result}</p>}
     </div>
   );
 };
