@@ -5,7 +5,7 @@ import { useAppContext } from "./AppContext";
 import "./LogIn.css";
 
 function LogIn() {
-  const { setIsLoggedIn, setActiveUsers, setType, setGroup, setTeacherId } = useAppContext();
+  const { setIsLoggedIn, setActiveUsers, setType, setGroup, setTeacherId, setStudentId } = useAppContext();
   const [eMail, setEMail] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("STUDENT");
@@ -40,7 +40,12 @@ function LogIn() {
         localStorage.setItem("mail", eMail);
         setType(userType);
         const response = await axios.get(`http://localhost:8080/${userType.toLowerCase()}/${eMail}`)
-        userType === "STUDENT" ? setGroup(response.data.groupId) : setTeacherId(response.data.id);
+        if(userType === "STUDENT") {
+          setStudentId(response.data.id);
+          setGroup(response.data.groupId)
+        } else {
+          setTeacherId(response.data.id);
+        }
         nav("/");
       });
   };

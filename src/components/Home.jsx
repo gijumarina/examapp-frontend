@@ -21,6 +21,7 @@ function Home() {
             if(isLoggedIn) {
                 const response = await axios.get("http://localhost:8080/test");
                 setTests(response.data);
+                console.log(response.data);
             }
         }
         fetchData();

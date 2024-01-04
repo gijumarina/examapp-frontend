@@ -1,6 +1,7 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAppContext } from "./AppContext";
 
@@ -44,11 +45,16 @@ const TestCard = ({
   isTeacher
 }) => {
   const { type, group, studentId, setOpen, setMessage } = useAppContext();
+  const nav = useNavigate();
   
   const handleStart = async () => {
-    const response = await axios.get(`http://localhost:8080/test/start/${id}/${studentId}`);
-    setMessage(response.data?.message);
-    setOpen(true);
+    await axios.get(`http://localhost:8080/test/start/${id}/${studentId}`).then((response) => {
+      setMessage(response.data?.message);
+      setOpen(true);
+      if(response.data?.message?.includes("Test with id")) {
+        nav("/test", {state:{id:id}});
+      }
+    });
   }
 
   const handleTeacherStart = async () => {
@@ -58,9 +64,10 @@ const TestCard = ({
   }
 
   const handleTeacherEnd = async () => {
-    const response = await axios.get(`http://localhost:8080/test/end/${id}`);
-    setMessage(response.data?.message);
-    setOpen(true);
+    await axios.get(`http://localhost:8080/test/end/${id}`).then((res) => {
+      setMessage(res.data?.message);
+      setOpen(true);
+    });
   }
   return (
     <Card>

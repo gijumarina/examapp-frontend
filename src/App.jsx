@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import NewTest from "./components/NewTest";
 import Register from "./components/Register";
 import Snackbar from "./components/Snackbar";
+import TestDetails from "./components/TestDetails";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/newTest" element={<NewTest/>}/>
             <Route path="/myTests" element={<MyTests/>}/>
+            <Route path="/test" element={<TestDetails/>}/>
           </Routes>
         </div>
       </Router>
