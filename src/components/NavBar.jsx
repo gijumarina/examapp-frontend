@@ -23,10 +23,10 @@ function NavBar() {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Home  |  </Link>
           {type === "TEACHER" && (
             <>
-              <Link to="/newTest">New Test</Link>
+              <Link to="/newTest">New Test  |  </Link>
               <Link to="/myTests">My Tests</Link>
             </>
           )}
