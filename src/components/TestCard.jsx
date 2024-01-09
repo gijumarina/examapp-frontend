@@ -69,6 +69,16 @@ const TestCard = ({
       setOpen(true);
     });
   }
+
+  const handleShowReport = async () => {
+    await axios.get(`http://localhost:8080/test/report/${id}`).then((res) => {
+      setMessage(
+        `Test contains: ${res.data.noOfQuestions} questions, from which ${res.data.noOfMultipleAnswer} are multiple answer questions, ${res.data.noOfMultipleChoice} are multiple choice answers and ${res.data.noOfOpenAnswers} are open answer questions!`
+      );
+      setOpen(true);
+    })
+  }
+
   return (
     <Card>
       <Title>Test {id}</Title>
@@ -85,6 +95,7 @@ const TestCard = ({
         <strong>Test Duration:</strong> {testDurationMinutes} minutes
       </Property>
       {group === groupId && type === "STUDENT" && <button onClick={handleStart} style={startButtonStyle}>Start</button>}
+      {group === groupId && type === "STUDENT" && <button onClick={handleShowReport} style={startButtonStyle}>Details</button>}
       {isTeacher && <button onClick={handleTeacherStart} style={startButtonStyle}>Start</button>}
       {isTeacher && <button onClick={handleTeacherEnd} style={startButtonStyle}>End</button>}
     </Card>
